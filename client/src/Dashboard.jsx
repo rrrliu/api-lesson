@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Visualization from './Visualization'
+import Visualization from './Visualization';
 import './App.css';
 import { withStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, Container, Card, CardHeader, CardContent, CardActions, MenuItem, TextField, Divider, Button } from '@material-ui/core';
+import states from './us_states'
 
 const styles = {
   card: {
@@ -40,12 +41,6 @@ function InputCard(props) {
     })
     return output
   }
-
-  const states= [
-    "CA",
-    "NY",
-    "WA"
-  ]
   
   const [entries, setEntries] = useState([])
   const [state, setState] = useState("")
@@ -72,8 +67,8 @@ function InputCard(props) {
               helperText="Please select a state"
             >
               {states.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
+                <MenuItem key={option.abbreviation} value={option.abbreviation}>
+                  {option.name}
                 </MenuItem>
               ))}
             </TextField>
