@@ -21,9 +21,9 @@ let db;
 MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true })
   .then((client) => {
     console.log("Connected to Database");
-    db = client.db("test");
-    db.collection("testCollection");
-    db.collection("testCollection").insertOne({
+    db = client.db("entry");
+    db.collection("entryCollection");
+    db.collection("entryCollection").insertOne({
       name: "pastEntries",
       pastEntries: [],
     });
@@ -31,7 +31,7 @@ MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true })
   .catch((error) => console.error(error));
 
 app.get("/entries", (req, res) => {
-  db.collection("testCollection").findOne({ name: "pastEntries" }, function (
+  db.collection("entryCollection").findOne({ name: "pastEntries" }, function (
     err,
     result
   ) {
@@ -42,7 +42,7 @@ app.get("/entries", (req, res) => {
 });
 
 app.post("/save", (req, res) => {
-  db.collection("testCollection").updateOne(
+  db.collection("entryCollection").updateOne(
     { name: "pastEntries" },
     { $push: { pastEntries: req.body } }
   );
