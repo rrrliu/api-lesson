@@ -4,7 +4,7 @@
 1. Clone this repository from your terminal.
 ```bash
 git clone https://github.com/rrrliu/api-lesson.git
-git checkout solution
+git checkout solution-mongoClient
 ```
 2. Make sure you have [Node.js](https://nodejs.org/en/download/ "Download Node.js") and [MongoDB](https://docs.mongodb.com/manual/administration/install-community/ "Download MongoDB")  installed.
 3. Install all dependencies within the `client/` and `server/` folders with these in your terminal.
