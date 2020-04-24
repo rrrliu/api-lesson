@@ -53,7 +53,8 @@ function InputCard(props) {
       days: days,
     };
     setEntry(entry);
-    // TODO: Save our entry
+    setPastEntries([entry, ...pastEntries]);
+    // TODO: Save this visualization somewhere
   };
 
   const displayEntry = () => {
@@ -66,7 +67,7 @@ function InputCard(props) {
   const displayPastEntries = () => {
     const output = [];
     pastEntries.forEach((e) => {
-      output.unshift(<Visualization state={e.state} days={e.days} />);
+      output.push(<Visualization state={e.state} days={e.days} />);
     });
     return output;
   };
