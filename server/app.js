@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose")
 const app = express();
-const MongoClient = require("mongodb").MongoClient;
 
 // Express middleware
 app.use(cors());
@@ -11,38 +11,29 @@ app.use(express.json());
 // Feel free to change port
 const port = 8000;
 
-let db;
+mongoose.connect("mongodb://localhost:27017", {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+})
 
-MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true })
-  .then((client) => {
-    console.log("Connected to Database");
-    db = client.db("entry");
-    db.collection("entryCollection");
-    db.collection("entryCollection").insertOne({
-      name: "pastEntries",
-      pastEntries: [],
-    });
-  })
-  .catch((error) => console.error(error));
+db = mongoose.connection;
+db.once('open', () => console.log("Connected to database."));
+db.on('error', console.error.bind(console, 'connection error:'));
+
+const Entry = mongoose.model('Entry', {
+  state: String,
+  days: Number
+});
 
 app.get("/entries", (req, res) => {
-  db.collection("entryCollection").findOne({ name: "pastEntries" }, function (
-    err,
-    result
-  ) {
-    if (err) throw err;
-    console.log(result);
-    res.send(result.pastEntries);
-  });
+  Entry.find()
+    .then(entries => res.send(entries))
 });
 
 app.post("/save", (req, res) => {
-  db.collection("entryCollection").updateOne(
-    { name: "pastEntries" },
-    { $push: { pastEntries: req.body } }
-  );
-  console.log("saved" + req.body);
-  res.send("Successfully saved!");
+  const entry = new Entry(req.body)
+  entry.save()
+    .then(entry => res.send(`Saved ${entry} to database`));
 });
 
 app.listen(port, () => console.log(`App running on port ${port}`));
