@@ -1,28 +1,63 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const app = express();
-app.use(cors())
+const MongoClient = require("mongodb").MongoClient;
+const bodyParser = require("body-parser");
+
+app.use(cors());
+
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+  bodyParser.json()
+);
 
 // Feel free to change port
 const port = 8000;
 
 // Jank
-const entries = []
+// const entries = [];
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
+let db;
+
+MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true })
+  .then((client) => {
+    console.log("Connected to Database");
+    db = client.db("test");
+    db.collection("testCollection").deleteOne({});
+    db.collection("testCollection");
+    db.collection("testCollection").insertOne({
+      name: "testdb",
+      pastEntries: [],
+    });
+  })
+  .catch((error) => console.error(error));
+
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
 });
 
-app.get('/entries', (req, res) => {
-  res.send(entries);
-  // TODO: Mongo shit
-})
+app.get("/entries", (req, res) => {
+  db.collection("testCollection").findOne({ name: "testdb" }, function (
+    err,
+    result
+  ) {
+    if (err) throw err;
+    console.log(result);
+    res.send(result.pastEntries);
+  });
+});
 
-app.post('/save', (req, res) => {
-  entries.push(req.body)
+app.post("/save", (req, res) => {
+  // entries.push(req.body);
   // TODO: Mongo shit
-  console.log('Saved ' + req.body)
-  res.send('Successfully saved!');
-})
+  db.collection("testCollection").updateOne(
+    { name: "testdb" },
+    { $push: { pastEntries: req.body } }
+  );
+  console.log("saved" + req.body);
+  res.send("Successfully saved!");
+});
 
 app.listen(port, () => console.log(`App running on port ${port}`));
