@@ -36,8 +36,6 @@ const styles = {
   },
 };
 
-const axiosBase = axios.create({ baseURL: "http://localhost:8000" });
-
 function InputCard(props) {
   const { classes } = props;
   const [entry, setEntry] = useState({ state: "", days: 0 });
@@ -46,7 +44,7 @@ function InputCard(props) {
   const [days, setDays] = useState("");
 
   useEffect(() => {
-    axiosBase
+    axios
       .get("/entries")
       .then((res) => {
         setPastEntries(res.data);
@@ -62,7 +60,7 @@ function InputCard(props) {
       days: days,
     };
     setEntry(entry);
-    axiosBase.post("/save", entry);
+    axios.post("/save", entry);
   };
 
   const displayEntry = () => {
