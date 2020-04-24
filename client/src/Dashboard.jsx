@@ -65,7 +65,7 @@ function InputCard(props) {
     axiosBase.post("/save", entry);
   };
 
-  const displayEntries = () => {
+  const displayEntry = () => {
     if (entry.state && entry.days) {
       return <Visualization state={entry.state} days={entry.days} />;
     }
@@ -75,7 +75,7 @@ function InputCard(props) {
   const displayPastEntries = () => {
     const output = [];
     pastEntries.forEach((e) => {
-      output.push(<Visualization state={e.state} days={e.days} />);
+      output.unshift(<Visualization state={e.state} days={e.days} />);
     });
     return output;
   };
@@ -121,7 +121,7 @@ function InputCard(props) {
           </CardActions>
         </Card>
 
-        <div>{displayEntries()}</div>
+        <div>{displayEntry()}</div>
         <ExpansionPanel>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
