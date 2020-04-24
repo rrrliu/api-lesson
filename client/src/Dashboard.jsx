@@ -20,6 +20,7 @@ import {
   Divider,
   Button,
 } from "@material-ui/core";
+import axios from "axios";
 import states from "./us_states";
 
 const styles = {
@@ -37,9 +38,13 @@ const styles = {
 
 function InputCard(props) {
   const { classes } = props;
+  const [entry, setEntry] = useState({ state: "", days: 0 });
+  const [pastEntries, setPastEntries] = useState([]);
+  const [state, setState] = useState("");
+  const [days, setDays] = useState("");
 
   useEffect(() => {
-    // TODO: Fetch all our saved visualizations
+    // TODO: Get all past entries
   });
 
   const addEntry = () => {
@@ -47,21 +52,25 @@ function InputCard(props) {
       state: state,
       days: days,
     };
-    setEntries([entry, ...entries]);
-    // TODO: Save this visualization somewhere
+    setEntry(entry);
+    // TODO: Save our entry
   };
 
-  const displayEntries = () => {
+  const displayEntry = () => {
+    if (entry.state && entry.days) {
+      return <Visualization state={entry.state} days={entry.days} />;
+    }
+    return <div></div>;
+  };
+
+  const displayPastEntries = () => {
     const output = [];
-    entries.forEach((e) => {
-      output.push(<Visualization state={e.state} days={e.days} />);
+    pastEntries.forEach((e) => {
+      output.unshift(<Visualization state={e.state} days={e.days} />);
     });
     return output;
   };
 
-  const [entries, setEntries] = useState([]);
-  const [state, setState] = useState("");
-  const [days, setDays] = useState("");
   return (
     <div>
       <AppBar position="static">
@@ -103,7 +112,7 @@ function InputCard(props) {
           </CardActions>
         </Card>
 
-        <div>{displayEntries()}</div>
+        <div>{displayEntry()}</div>
         <ExpansionPanel>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
@@ -112,7 +121,7 @@ function InputCard(props) {
           >
             Past Visualizations
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails></ExpansionPanelDetails>
+          <ExpansionPanelDetails>{displayPastEntries()}</ExpansionPanelDetails>
         </ExpansionPanel>
       </Container>
     </div>

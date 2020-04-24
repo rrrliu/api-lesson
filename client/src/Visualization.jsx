@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { LineChart, AreaChart } from 'react-chartkick'
+import { AreaChart } from 'react-chartkick'
 import 'chart.js'
 import axios from 'axios'
 import states from './us_states.json'
@@ -22,12 +22,11 @@ export default function Visualization(props) {
 			})
 			.catch(err => {
 				console.log(err)
-				alert("Invalid inputs")
 			});
 	});
 
 	const fullName = abbr => {
-		return states.filter(e => e.abbreviation == abbr)[0].name;
+		return states.filter(e => e.abbreviation === abbr)[0].name;
 	}
 
 	return (
