@@ -27,7 +27,7 @@ export default function Visualization(props) {
   });
 
   const fullName = (abbr) => {
-    return states.filter((e) => e.abbreviation == abbr)[0].name;
+    return states.filter((e) => e.abbreviation === abbr)[0].name;
   };
 
   return (

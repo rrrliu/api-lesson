@@ -2,16 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const MongoClient = require("mongodb").MongoClient;
-const bodyParser = require("body-parser");
 
+// Express middleware
 app.use(cors());
-
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  }),
-  bodyParser.json()
-);
+app.use(express.urlencoded({extended: true}))
+app.use(express.json());
 
 // Feel free to change port
 const port = 8000;
