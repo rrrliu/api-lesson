@@ -1,11 +1,14 @@
+
 # API Lesson Starter Code
 
 ## Introduction
+
 
 ## Setup:
 1. Clone this repository from your terminal.
 ```bash
 git clone https://github.com/rrrliu/api-lesson.git
+
 ```
 2. Make sure you have [node.js](https://nodejs.org/en/download/ "Download Node.js") and [yarn](https://classic.yarnpkg.com/en/docs/install/ "Download Yarn") installed.
 3. Install all dependencies within the `client/` and `server/` folders.
