@@ -47,19 +47,28 @@ function InputCard(props) {
       state: state,
       days: days,
     };
-    setEntries([entry, ...entries]);
+    setEntry(entry);
+    setPastEntries([entry, ...pastEntries]);
     // TODO: Save this visualization somewhere
   };
 
-  const displayEntries = () => {
+  const displayEntry = () => {
+    if (entry.state && entry.days) {
+      return <Visualization state={entry.state} days={entry.days} />;
+    }
+    return <div></div>;
+  };
+
+  const displayPastEntries = () => {
     const output = [];
-    entries.forEach((e) => {
+    pastEntries.forEach((e) => {
       output.push(<Visualization state={e.state} days={e.days} />);
     });
     return output;
   };
 
-  const [entries, setEntries] = useState([]);
+  const [entry, setEntry] = useState({ state: "", days: 0 });
+  const [pastEntries, setPastEntries] = useState([]);
   const [state, setState] = useState("");
   const [days, setDays] = useState("");
   return (
@@ -103,7 +112,7 @@ function InputCard(props) {
           </CardActions>
         </Card>
 
-        <div>{displayEntries()}</div>
+        <div>{displayEntry()}</div>
         <ExpansionPanel>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
@@ -112,7 +121,7 @@ function InputCard(props) {
           >
             Past Visualizations
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails></ExpansionPanelDetails>
+          <ExpansionPanelDetails>{displayPastEntries()}</ExpansionPanelDetails>
         </ExpansionPanel>
       </Container>
     </div>
