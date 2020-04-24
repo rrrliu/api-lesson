@@ -16,30 +16,22 @@ app.use(
 // Feel free to change port
 const port = 8000;
 
-// Jank
-// const entries = [];
-
 let db;
 
 MongoClient.connect("mongodb://localhost:27017", { useUnifiedTopology: true })
   .then((client) => {
     console.log("Connected to Database");
     db = client.db("test");
-    db.collection("testCollection").deleteOne({});
     db.collection("testCollection");
     db.collection("testCollection").insertOne({
-      name: "testdb",
+      name: "pastEntries",
       pastEntries: [],
     });
   })
   .catch((error) => console.error(error));
 
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
-
 app.get("/entries", (req, res) => {
-  db.collection("testCollection").findOne({ name: "testdb" }, function (
+  db.collection("testCollection").findOne({ name: "pastEntries" }, function (
     err,
     result
   ) {
@@ -50,10 +42,8 @@ app.get("/entries", (req, res) => {
 });
 
 app.post("/save", (req, res) => {
-  // entries.push(req.body);
-  // TODO: Mongo shit
   db.collection("testCollection").updateOne(
-    { name: "testdb" },
+    { name: "pastEntries" },
     { $push: { pastEntries: req.body } }
   );
   console.log("saved" + req.body);
