@@ -1,11 +1,13 @@
 # API Lesson Starter Code
 
 ## Introduction
+An interactive demo where we visualize COVID-19 data! We'll be posting the recording when it becomes available.
 
 ## Setup:
 1. Clone this repository from your terminal.
 ```bash
 git clone https://github.com/rrrliu/api-lesson.git
+cd api-lesson
 ```
 2. Make sure you have [Node.js](https://nodejs.org/en/download/ "Download Node.js") and [MongoDB](https://docs.mongodb.com/manual/administration/install-community/ "Download MongoDB")  installed.
 3. Install all dependencies within the `client/` and `server/` folders with these in your terminal.
