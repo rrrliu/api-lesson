@@ -1,7 +1,7 @@
 # API Lesson Starter Code
 
 ## Introduction
-An interactive demo where we visualize COVID-19 data! We'll be posting the recording when it becomes available.
+An starter pack for visualizing COVID-19 data!
 
 ## Setup:
 1. Clone this repository from your terminal.
@@ -18,7 +18,7 @@ cd ../server
 npm install
 cd ..
 ```
-5. Follow along with the instructions in the demo!
+5. Follow along with the instructions in the article!
 
 ## Solutions:
 If you're stuck or lost, you can view the completed files on either the `solution-mongoDB` or `solution-mongoose` branch (they both do the same thing, just with a different framework).
