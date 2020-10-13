@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Visualization from "./Visualization";
-import "./App.css";
-import { withStyles } from "@material-ui/core/styles";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import React, { useState, useEffect } from 'react';
+import Visualization from './Visualization';
+import './App.css';
+import { withStyles } from '@material-ui/core/styles';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   AppBar,
   ExpansionPanel,
@@ -19,29 +19,29 @@ import {
   TextField,
   Divider,
   Button,
-} from "@material-ui/core";
-import axios from "axios";
-import states from "./us_states";
+} from '@material-ui/core';
+import axios from 'axios';
+import states from './us_states';
 
 const styles = {
   card: {
     maxWidth: 500,
-    margin: "50px auto",
+    margin: '50px auto',
   },
   divider: {
-    margin: "10px 0",
+    margin: '10px 0',
   },
   cardActions: {
-    justifyContent: "center",
+    justifyContent: 'center',
   },
 };
 
 function InputCard(props) {
   const { classes } = props;
-  const [entry, setEntry] = useState({ state: "", days: 0 });
+  const [entry, setEntry] = useState({ state: '', days: 0 });
   const [pastEntries, setPastEntries] = useState([]);
-  const [state, setState] = useState("");
-  const [days, setDays] = useState("");
+  const [state, setState] = useState('');
+  const [days, setDays] = useState('');
 
   useEffect(() => {
     // TODO: Get all past entries
